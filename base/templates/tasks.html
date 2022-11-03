@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>task</title>
+  </head>
+  <body>
+    <a href="{% url 'task_create' %}">create</a>
+    <hr>
+    <form action="" method="get">
+      <input type="text" name="seacher" value="{{seacher}}" />
+      <button type="submit">seacher</button>
+    </form>
+    <table>
+      <tr>
+        items complete count: {{count}}
+      </tr>
+      {% for task in object_list %}
+      <td>
+        <td>{{task}}</td>
+        <td><a href="{% url 'task_update' task.id %}">edit</a></td>
+        <td><a href="{% url 'task_delete' task.id %}">del</a></td>
+        <td><a href="{% url 'details' task.id %}">view</a></td>
+      </tr>
+      {% endfor %}
+    </table>
+    <hr>
+    
+    {% if request.user.is_authenticated %}
+    {{ request.user }}
+    <a href="{% url 'user_logout' %}">Logout</a>
+     {% else %}
+    <a href="{% url 'user_login' %}">Login</a>
+    {% endif %}
+  </body>
+</html>

@@ -1,0 +1,12 @@
+task {{title}}
+
+<html>
+  <form action="" method="post">
+    {% csrf_token %} {{form.as_p}}
+    <button type="submit">{{btntxt}}</button>
+  </form>
+
+  {% if title == 'login' %} register
+  <a href="{% url 'register' %}">register</a>
+  {% endif %}
+</html>
