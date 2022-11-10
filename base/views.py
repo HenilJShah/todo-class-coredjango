@@ -68,6 +68,8 @@ class TaskList(LoginRequiredMixin, ListView):
         context['seacher'] = seacher
 
         # permission
+
+        # ref: https://testdriven.io/blog/django-permissions/
         content_type = ContentType.objects.get_for_model(Tasks)
         post_permission = Permission.objects.filter(content_type=content_type)
         print([perm.codename for perm in post_permission])
