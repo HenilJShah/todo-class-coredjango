@@ -1,7 +1,9 @@
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import Permission
 from django.contrib.auth.views import LoginView
+from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, FormView
@@ -64,6 +66,12 @@ class TaskList(LoginRequiredMixin, ListView):
             context['object_list'] = context['object_list'].filter(title__icontains=seacher)
 
         context['seacher'] = seacher
+
+        # permission
+        content_type = ContentType.objects.get_for_model(Tasks)
+        post_permission = Permission.objects.filter(content_type=content_type)
+        print([perm.codename for perm in post_permission])
+        print(self.request.user.has_perm('base.view_tasks'))
         return context
 
 
